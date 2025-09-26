@@ -1,0 +1,295 @@
+// ===================================
+// VARIABLES - DESIGN TOKENS
+// ===================================
+
+// ===================================
+// COLORS
+// ===================================
+
+// Foundations
+$color-black: #000000;
+$color-white: #ffffff;
+
+// Grays
+$gray-50: #f9fafb;
+$gray-100: #f5f5f5;
+$gray-200: #e5e7eb;
+$gray-300: #e5e5e5;
+$gray-400: #9ca3af;
+$gray-500: #737373;
+$gray-600: #6b7280;
+$gray-700: #171717;
+$gray-800: #0a0a0a;
+
+// Azure / Blues
+$azure-50: #eff6ff;
+$azure-100: #dbeafe;
+$azure-200: #64748b;
+$azure-300: #4b5563;
+$azure-400: #285ff3;
+$azure-500: #1e40af;
+$azure-600: #1a1f2c;
+
+// Light Purple
+$light-purple-50: #f5f3fe;
+$light-purple-100: #9b87f5;
+
+// Red
+$red-50: #fef2f2;
+$red-100: #ef4444;
+$red-200: #dc2626;
+
+// Green
+$green-50: #ecfdf5;
+$green-100: #4caf50;
+$green-200: #27922b;
+
+// Yellow
+$yellow-50: #efd244;
+$yellow-100: #c19a0e;
+
+// Purple
+$purple-50: #f3e8ff;
+$purple-100: #9d44e2;
+$purple-200: #6b21a8;
+
+// Teal
+$teal-50: #10b981;
+
+// Orange
+$orange-50: #fff7ed;
+$orange-100: #ea580c;
+$orange-200: #c2410c;
+$orange-300: #9a3412;
+
+// ===================================
+// SEMANTIC COLORS
+// ===================================
+
+// Surfaces
+$surface-default: $color-white;
+$surface-muted: $gray-50;
+$surface-subtle: $gray-100;
+$surface-hover: $gray-200;
+$surface-disabled: $gray-50;
+$surface-danger: $red-50;
+$surface-success: $green-50;
+$surface-warning: $yellow-50;
+$surface-info: $azure-50;
+
+// Text
+$text-primary: $gray-800;
+$text-secondary: $gray-500;
+$text-tertiary: $gray-400;
+$text-on-light: $color-white;
+$text-danger: $red-200;
+$text-success: $green-200;
+$text-warning: $yellow-100;
+
+// Icons
+$icon-primary: $gray-600;
+$icon-secondary: $gray-400;
+$icon-active: $azure-400;
+$icon-danger: $red-100;
+$icon-success: $green-100;
+$icon-warning: $yellow-100;
+
+// Borders
+$border-default: $gray-200;
+$border-muted: $gray-300;
+$border-hover: $gray-400;
+$border-focus: $azure-400;
+$border-danger: $red-50;
+$border-success: $green-50;
+$border-warning: $yellow-50;
+
+// Focus rings
+$focus-ring-default: $azure-400;
+$focus-ring-danger: $red-100;
+$focus-ring-success: $green-100;
+$focus-ring-warning: $yellow-100;
+
+// ===================================
+// SHADOWS
+// ===================================
+$shadow-sm: 0px 1px 2px 0px rgba($color-black, 0.05);
+$shadow-md: 0px 1px 3px 0px rgba($color-black, 0.1),
+  0px 1px 2px -1px rgba($color-black, 0.1);
+$shadow-lg: 0px 4px 6px -1px rgba($color-black, 0.1),
+  0px 2px 4px -1px rgba($color-black, 0.06);
+$shadow-xl: 0px 10px 15px -3px rgba($color-black, 0.1),
+  0px 4px 6px -2px rgba($color-black, 0.1);
+
+// ===================================
+// FOCUS SHADOWS
+// ===================================
+$shadow-focus-default: 0 0 0 3px rgba($azure-400, 0.3);
+$shadow-focus-primary: 0 0 0 3px rgba($azure-400, 0.3);
+$shadow-focus-secondary: 0 0 0 3px rgba($gray-400, 0.2);
+$shadow-focus-destructive: 0 0 0 3px rgba($red-200, 0.3);
+$shadow-focus-warning: 0 0 0 3px rgba($yellow-100, 0.3);
+$shadow-focus-success: 0 0 0 3px rgba($green-100, 0.3);
+$shadow-focus-disabled: none;
+
+// ===================================
+// SCALE / SPACING / DIMENSIONS
+// ===================================
+$scale-0: 0;
+$scale-1: 1px;
+$scale-2: 2px;
+$scale-3: 3px;
+$scale-4: 4px;
+$scale-6: 6px;
+$scale-8: 8px;
+$scale-10: 10px;
+$scale-11: 11px;
+$scale-12: 12px;
+$scale-14: 14px;
+$scale-16: 16px;
+$scale-18: 18px;
+$scale-20: 20px;
+$scale-24: 24px;
+$scale-28: 28px;
+$scale-32: 32px;
+$scale-36: 36px;
+$scale-40: 40px;
+$scale-48: 48px;
+$scale-56: 56px;
+$scale-64: 64px;
+$scale-72: 72px;
+$scale-96: 96px;
+$scale-128: 128px;
+$scale-256: 256px;
+$scale-512: 512px;
+
+// Border widths
+$border-width-0: $scale-0;
+$border-width-1: $scale-1;
+$border-width-2: $scale-2;
+
+// Border radius
+$border-radius-0: $scale-0;
+$border-radius-2: $scale-2;
+$border-radius-4: $scale-4;
+$border-radius-6: $scale-6;
+$border-radius-8: $scale-8;
+$border-radius-512: $scale-512;
+
+// ===================================
+// FONTS
+// ===================================
+$font-family-base: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui,
+  sans-serif;
+
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+
+// Line heights
+$line-height-tight: 1.2;
+$line-height-normal: 1.4;
+$line-height-loose: 1.6;
+
+// Font sizes
+$text-xxl-bold: (
+  font-family: $font-family-base,
+  font-weight: $font-weight-bold,
+  font-size: $scale-24,
+  line-height: $line-height-normal,
+);
+$text-xxl-semibold: (
+  font-family: $font-family-base,
+  font-weight: $font-weight-semibold,
+  font-size: $scale-24,
+  line-height: $line-height-normal,
+);
+$text-xl-semibold: (
+  font-family: $font-family-base,
+  font-weight: $font-weight-semibold,
+  font-size: $scale-20,
+  line-height: $line-height-normal,
+);
+$text-lg-semibold: (
+  font-family: $font-family-base,
+  font-weight: $font-weight-semibold,
+  font-size: $scale-18,
+  line-height: $line-height-normal,
+);
+$text-lg-semibold-alt: (
+  font-family: $font-family-base,
+  font-weight: $font-weight-semibold,
+  font-size: $scale-18,
+  line-height: $line-height-normal,
+);
+$text-md-semibold: (
+  font-family: $font-family-base,
+  font-weight: $font-weight-semibold,
+  font-size: $scale-16,
+  line-height: $line-height-normal,
+);
+$text-md-regular: (
+  font-family: $font-family-base,
+  font-weight: $font-weight-regular,
+  font-size: $scale-16,
+  line-height: $line-height-normal,
+);
+$text-sm-semibold: (
+  font-family: $font-family-base,
+  font-weight: $font-weight-semibold,
+  font-size: $scale-14,
+  line-height: $line-height-normal,
+);
+$text-sm-medium: (
+  font-family: $font-family-base,
+  font-weight: $font-weight-medium,
+  font-size: $scale-14,
+  line-height: $line-height-normal,
+);
+$text-sm-regular: (
+  font-family: $font-family-base,
+  font-weight: $font-weight-regular,
+  font-size: $scale-14,
+  line-height: $line-height-normal,
+);
+$text-xs-semibold: (
+  font-family: $font-family-base,
+  font-weight: $font-weight-semibold,
+  font-size: $scale-12,
+  line-height: $line-height-normal,
+);
+$text-xs-medium: (
+  font-family: $font-family-base,
+  font-weight: $font-weight-medium,
+  font-size: $scale-12,
+  line-height: $line-height-normal,
+);
+$text-xs-regular: (
+  font-family: $font-family-base,
+  font-weight: $font-weight-regular,
+  font-size: $scale-12,
+  line-height: $line-height-normal,
+);
+$text-xxs-medium: (
+  font-family: $font-family-base,
+  font-weight: $font-weight-medium,
+  font-size: $scale-11,
+  line-height: $line-height-normal,
+);
+$text-xxs-regular: (
+  font-family: $font-family-base,
+  font-weight: $font-weight-regular,
+  font-size: $scale-11,
+  line-height: $line-height-normal,
+);
+
+// ===================================
+// MIXINS
+// ===================================
+
+// @mixin text-style($style) {
+//   font-family: map-get($style, font-family);
+//   font-weight: map-get($style, font-weight);
+//   font-size: map-get($style, font-size);
+//   line-height: map-get($style, line-height);
+// }

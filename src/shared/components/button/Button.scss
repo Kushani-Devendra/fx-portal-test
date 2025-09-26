@@ -1,0 +1,243 @@
+@import "../../../themeScss/variables";
+
+// Base button styles
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $scale-8;
+  border: $border-width-1 solid transparent;
+  border-radius: $border-radius-6;
+  font-family: $font-family-base;
+  font-weight: $font-weight-medium;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  position: relative;
+  white-space: nowrap;
+  user-select: none;
+  outline: none;
+
+  &:focus-visible {
+    outline: none;
+  }
+
+  &:active {
+    transform: translateY(0.25px);
+  }
+
+  // Disabled state
+  &--disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+    pointer-events: none;
+
+    &:active {
+      transform: none !important;
+    }
+  }
+
+  // Icon styling
+  &__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    svg {
+      width: $scale-16;
+      height: $scale-16;
+      flex-shrink: 0;
+    }
+
+    &--leading {
+      margin-right: 0;
+    }
+
+    &--trailing {
+      margin-left: 0;
+    }
+  }
+
+  &__text {
+    line-height: 1;
+  }
+
+  // Tooltip container
+  &__tooltip {
+    position: absolute;
+    bottom: 90%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-$scale-8);
+    background-color: $color-white;
+    color: $color-black;
+    padding: $scale-4 $scale-8;
+    border: $border-width-1 solid $gray-300;
+    border-radius: $border-radius-4;
+    font-size: $scale-12;
+    font-weight: $font-weight-medium;
+    white-space: nowrap;
+    box-shadow: $shadow-md;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    z-index: 10;
+  }
+
+  &:hover .btn__tooltip {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-$scale-12);
+    transition-delay: 0.3s;
+  }
+}
+
+// Size variants
+.btn--sm {
+  height: $scale-32;
+  padding: 0 $scale-12;
+  font-size: $scale-14;
+
+  &.btn--icon-only {
+    width: $scale-32;
+    padding: 0;
+  }
+
+  .btn__icon svg {
+    width: $scale-14;
+    height: $scale-14;
+  }
+}
+
+.btn--md {
+  height: $scale-40;
+  padding: 0 $scale-16;
+  font-size: $scale-16;
+
+  &.btn--icon-only {
+    width: $scale-40;
+    padding: 0;
+  }
+
+  .btn__icon svg {
+    width: $scale-16;
+    height: $scale-16;
+  }
+}
+
+// Variant colors
+.btn--primary {
+  background-color: $azure-400;
+  color: $color-white;
+  border-color: $azure-400;
+
+  &:hover:not(.btn--disabled) {
+    background-color: $azure-500;
+    border-color: $azure-500;
+  }
+
+  &:active:not(.btn--disabled) {
+    background-color: $azure-500;
+    border-color: $azure-500;
+  }
+
+  &:focus:not(.btn--disabled) {
+    box-shadow: $shadow-focus-primary;
+  }
+}
+
+.btn--secondary {
+  background-color: $color-white;
+  color: $gray-700;
+  border-color: $gray-200;
+
+  &:hover:not(.btn--disabled) {
+    background-color: $gray-50;
+    border-color: $gray-400;
+  }
+
+  &:active:not(.btn--disabled) {
+    background-color: $gray-100;
+    border-color: $gray-600;
+  }
+
+  &:focus:not(.btn--disabled) {
+    box-shadow: $shadow-focus-secondary;
+  }
+}
+
+.btn--gray {
+  background-color: $gray-100;
+  color: $gray-700;
+  border-color: $gray-200;
+
+  &:hover:not(.btn--disabled) {
+    background-color: $gray-200;
+    border-color: $gray-400;
+  }
+
+  &:active:not(.btn--disabled) {
+    background-color: $gray-300;
+    border-color: $gray-600;
+  }
+
+  &:focus:not(.btn--disabled) {
+    box-shadow: $shadow-focus-secondary;
+  }
+}
+
+.btn--ghost {
+  background-color: transparent;
+  color: $gray-700;
+  border-color: transparent;
+
+  &:hover:not(.btn--disabled) {
+    background-color: $gray-100;
+  }
+
+  &:active:not(.btn--disabled) {
+    background-color: $gray-200;
+  }
+
+  &:focus:not(.btn--disabled) {
+    box-shadow: $shadow-focus-secondary;
+  }
+}
+
+.btn--destructive {
+  background-color: $red-100;
+  color: $color-white;
+  border-color: $red-100;
+
+  &:hover:not(.btn--disabled) {
+    background-color: $red-200;
+    border-color: $red-200;
+  }
+
+  &:active:not(.btn--disabled) {
+    background-color: $red-200;
+    border-color: $red-200;
+  }
+
+  &:focus:not(.btn--disabled) {
+    box-shadow: $shadow-focus-destructive;
+  }
+}
+
+.btn--warning {
+  background-color: $yellow-100;
+  color: $color-white;
+  border-color: $yellow-100;
+
+  &:hover:not(.btn--disabled) {
+    background-color: $yellow-50;
+    border-color: $yellow-50;
+  }
+
+  &:active:not(.btn--disabled) {
+    background-color: $yellow-50;
+    border-color: $yellow-50;
+  }
+
+  &:focus:not(.btn--disabled) {
+    box-shadow: $shadow-focus-warning;
+  }
+}
