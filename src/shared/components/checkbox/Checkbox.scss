@@ -1,0 +1,126 @@
+@import "../../../themeScss/variables";
+
+.checkbox-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: $scale-4;
+  width: 100%;
+  position: relative;
+}
+
+.checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: $scale-8;
+  cursor: pointer;
+  font-family: $font-family-base;
+  font-weight: $font-weight-regular;
+  font-size: $scale-14;
+  color: $text-primary;
+  position: relative;
+
+  &--disabled {
+    cursor: not-allowed;
+    color: $text-tertiary;
+
+    .checkbox__box {
+      background-color: $surface-disabled;
+      border-color: $border-muted;
+    }
+  }
+
+  &--focused:not(.checkbox--disabled) {
+    .checkbox__box {
+      box-shadow: $shadow-focus-default;
+      border-color: $border-focus;
+    }
+  }
+
+  &--destructive:not(.checkbox--disabled) {
+    .checkbox__box {
+      border-color: $red-100;
+    }
+
+    &.checkbox--focused .checkbox__box {
+      box-shadow: $shadow-focus-danger;
+      border-color: $red-100;
+    }
+
+    .checkbox__label {
+      color: $text-danger;
+    }
+  }
+}
+
+.checkbox__input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+
+  &:checked + .checkbox__box {
+    background-color: $azure-400;
+    border-color: $azure-400;
+
+    .checkbox__icon {
+      opacity: 1;
+      color: $color-white;
+    }
+  }
+
+  &:disabled + .checkbox__box {
+    background-color: $surface-disabled;
+    border-color: $border-muted;
+
+    .checkbox__icon {
+      color: $icon-secondary;
+    }
+  }
+}
+
+.checkbox__box {
+  width: $scale-16;
+  height: $scale-16;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: $border-width-1 solid $border-default;
+  border-radius: $border-radius-4;
+  background-color: $surface-default;
+  transition: all 0.2s ease-in-out;
+
+  .checkbox__icon {
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+    color: $icon-active;
+  }
+}
+
+.checkbox__label {
+  line-height: $line-height-normal;
+  user-select: none;
+}
+
+.checkbox__required {
+  color: $text-danger;
+  margin-left: $scale-2;
+}
+
+.checkbox__hint {
+  display: flex;
+  align-items: center;
+  gap: $scale-6;
+  font-family: $font-family-base;
+  font-weight: $font-weight-regular;
+  font-size: $scale-12;
+  color: $text-secondary;
+  line-height: $line-height-normal;
+
+  &--destructive {
+    color: $text-danger;
+  }
+}
+
+.checkbox__hint-icon {
+  flex-shrink: 0;
+  color: $text-danger;
+}

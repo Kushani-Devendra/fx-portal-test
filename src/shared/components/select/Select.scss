@@ -1,0 +1,364 @@
+@import "../../../themeScss/variables";
+
+// Select wrapper
+.select-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: $scale-6;
+  width: 100%;
+  position: relative;
+}
+
+// Base select styles
+.select {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background-color: $surface-default;
+  border: $border-width-1 solid $border-default;
+  border-radius: $border-radius-6;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+
+  &:hover:not(.select--disabled) {
+    border-color: $border-hover;
+  }
+
+  &--focused {
+    border-color: $border-focus;
+    box-shadow: $shadow-focus-default;
+  }
+
+  &--destructive {
+    border-color: $red-100;
+
+    &:hover:not(.select--disabled) {
+      border-color: $red-100;
+    }
+
+    &.select--focused {
+      border-color: $red-100;
+      box-shadow: $shadow-focus-danger;
+    }
+
+    .select__hint {
+      color: $text-danger;
+    }
+  }
+
+  &--disabled {
+    background-color: $surface-disabled;
+    border-color: $border-muted;
+    cursor: not-allowed;
+
+    .select__trigger {
+      cursor: not-allowed;
+      color: $text-tertiary;
+    }
+
+    .select__placeholder {
+      color: $text-tertiary;
+    }
+
+    .select__chevron {
+      color: $icon-secondary;
+    }
+
+    .select__chevron {
+      color: $icon-secondary;
+    }
+  }
+}
+
+// Size variants
+.select--sm {
+  min-height: $scale-32;
+
+  .select__trigger {
+    padding: 0 $scale-8 0 $scale-12;
+    font-size: $scale-14;
+    min-height: $scale-32;
+  }
+
+  .select__secondary-dropdown-trigger {
+    min-height: $scale-32;
+    padding: 0 $scale-8;
+    font-size: $scale-14;
+  }
+
+  .select__button {
+    min-height: $scale-32;
+    padding: 0 $scale-12;
+    font-size: $scale-14;
+  }
+
+  .select__selected-icon,
+  .select__option-icon {
+    width: $scale-16;
+    height: $scale-16;
+  }
+
+  .select__chevron {
+    margin-right: $scale-8;
+  }
+}
+
+.select--md {
+  min-height: $scale-40;
+
+  .select__trigger {
+    padding: 0 $scale-8 0 $scale-16;
+    font-size: $scale-16;
+    min-height: $scale-40;
+  }
+
+  .select__secondary-dropdown-trigger {
+    min-height: $scale-40;
+    padding: 0 $scale-12;
+    font-size: $scale-16;
+  }
+
+  .select__button {
+    min-height: $scale-40;
+    padding: 0 $scale-16;
+    font-size: $scale-16;
+  }
+
+  .select__selected-icon,
+  .select__option-icon {
+    width: $scale-20;
+    height: $scale-20;
+  }
+
+  .select__chevron {
+    margin-right: $scale-12;
+  }
+}
+
+// Label
+.select__label {
+  font-family: $font-family-base;
+  font-weight: $font-weight-medium;
+  font-size: $scale-14;
+  color: $text-primary;
+  line-height: $line-height-normal;
+}
+
+.select__required {
+  color: $text-danger;
+  margin-left: $scale-2;
+}
+
+// Main dropdown
+.select__dropdown {
+  flex: 1;
+  position: relative;
+  display: flex;
+  outline: none;
+}
+
+.select__trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-family: $font-family-base;
+  font-weight: $font-weight-regular;
+  color: $text-primary;
+  transition: all 0.2s ease-in-out;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.select__trigger-content {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  text-align: left;
+  min-width: 0;
+}
+
+.select__selected-option {
+  display: flex;
+  align-items: center;
+  gap: $scale-8;
+  width: 100%;
+  min-width: 0;
+}
+
+.select__selected-icon,
+.select__option-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $icon-secondary;
+  flex-shrink: 0;
+
+  svg {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.select__selected-text,
+.select__option-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+  flex: 1;
+}
+
+.select__selected-label,
+.select__option-label {
+  font-weight: $font-weight-regular;
+  color: $text-primary;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+
+.select__selected-description,
+.select__option-description {
+  font-size: $scale-12;
+  font-weight: $font-weight-regular;
+  color: $text-secondary;
+  line-height: $line-height-tight;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+  margin-top: $scale-1;
+}
+
+.select__placeholder {
+  color: $text-tertiary;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.select__chevron {
+  flex-shrink: 0;
+  color: $icon-secondary;
+  transition: transform 0.2s ease-in-out;
+
+  &--open {
+    transform: rotate(180deg);
+  }
+}
+
+// Main dropdown menu
+.select__dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background-color: $surface-default;
+  border: $border-width-1 solid $border-default;
+  border-radius: $border-radius-6;
+  box-shadow: $shadow-xl;
+  max-height: $scale-256;
+  overflow-y: auto;
+  overflow-x: hidden;
+  margin-top: $scale-4;
+
+  // Smooth scrollbar styling
+  scrollbar-width: thin;
+  scrollbar-color: $gray-300 transparent;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $gray-300;
+    border-radius: $border-radius-4;
+
+    &:hover {
+      background-color: $gray-400;
+    }
+  }
+
+  // Animation styles
+  transform-origin: top;
+  opacity: 0;
+  transform: scaleY(0.95) translateY(-8px);
+  transition: opacity 0.15s ease-out, transform 0.15s ease-out;
+
+  &--open {
+    opacity: 1;
+    transform: scaleY(1) translateY(0);
+  }
+}
+
+.select__dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: $scale-8;
+  width: 100%;
+  padding: $scale-8 $scale-12;
+  text-align: left;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-family: $font-family-base;
+  font-weight: $font-weight-regular;
+  font-size: inherit;
+  color: $text-primary;
+  transition: background-color 0.2s ease-in-out;
+
+  &:hover {
+    background-color: $surface-hover;
+  }
+
+  &:focus {
+    outline: none;
+    background-color: $surface-hover;
+  }
+
+  &--selected {
+    background-color: $azure-50;
+
+    .select__option-label {
+      color: $azure-400;
+      font-weight: $font-weight-medium;
+    }
+
+    .select__option-icon {
+      color: $azure-400;
+    }
+  }
+}
+
+// Hint text
+.select__hint {
+  display: flex;
+  align-items: center;
+  gap: $scale-6;
+  font-family: $font-family-base;
+  font-weight: $font-weight-regular;
+  font-size: $scale-12;
+  color: $text-secondary;
+  line-height: $line-height-normal;
+
+  &--destructive {
+    color: $text-danger;
+  }
+}
+
+.select__hint-icon {
+  flex-shrink: 0;
+  color: $text-danger;
+}

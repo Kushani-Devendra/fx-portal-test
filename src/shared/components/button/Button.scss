@@ -218,7 +218,7 @@
   }
 
   &:focus:not(.btn--disabled) {
-    box-shadow: $shadow-focus-destructive;
+    box-shadow: $shadow-focus-danger;
   }
 }
 
