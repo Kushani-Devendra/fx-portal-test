@@ -27,6 +27,7 @@ export interface SelectProps
   value?: string;
   onChange?: (value: string) => void;
   options?: SelectOption[];
+  autoComplete?: boolean;
 }
 
 export const Select = forwardRef<HTMLDivElement, SelectProps>(
@@ -42,6 +43,7 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>(
       value,
       onChange,
       options = [],
+      autoComplete = false,
       className,
       id,
       ...props
@@ -51,8 +53,10 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>(
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [isFocused, setIsFocused] = useState(false);
     const [shouldRenderDropdown, setShouldRenderDropdown] = useState(false);
+    const [searchQuery, setSearchQuery] = useState("");
 
     const dropdownRef = useRef<HTMLDivElement>(null);
+    const inputRef = useRef<HTMLInputElement>(null);
 
     // Generate unique ID if not provided
     const selectId = id || `select-${Math.random().toString(36).substr(2, 9)}`;
@@ -96,6 +100,14 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>(
 
     const selectedOption = options.find((opt) => opt.value === value);
 
+    // Filter options based on search query for autocomplete
+    const filteredOptions =
+      autoComplete && searchQuery
+        ? options.filter((option) =>
+            option.label.toLowerCase().includes(searchQuery.toLowerCase())
+          )
+        : options;
+
     const handleDropdownToggle = () => {
       if (!disabled) {
         if (!isDropdownOpen) {
@@ -110,20 +122,51 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>(
 
     const handleDropdownSelect = (selectedValue: string) => {
       onChange?.(selectedValue);
+      setSearchQuery("");
       setIsDropdownOpen(false);
       setTimeout(() => setShouldRenderDropdown(false), 150);
+      if (autoComplete && inputRef.current) {
+        inputRef.current.blur();
+      }
     };
 
     const handleFocus = () => {
       if (!disabled) {
         setIsFocused(true);
+        if (autoComplete) {
+          setShouldRenderDropdown(true);
+          setTimeout(() => setIsDropdownOpen(true), 10);
+        }
       }
     };
 
     const handleBlur = () => {
       setTimeout(() => {
         setIsFocused(false);
+        setSearchQuery("");
       }, 150);
+    };
+
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      const query = e.target.value;
+      setSearchQuery(query);
+
+      // If user is editing a selected value, reset the selection
+      if (selectedOption && query !== selectedOption.label) {
+        onChange?.("");
+      }
+
+      if (!isDropdownOpen) {
+        setShouldRenderDropdown(true);
+        setTimeout(() => setIsDropdownOpen(true), 10);
+      }
+    };
+
+    const handleInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+      if (e.key === "Enter" && filteredOptions.length === 1) {
+        handleDropdownSelect(filteredOptions[0].value);
+        inputRef.current?.blur();
+      }
     };
 
     return (
@@ -138,51 +181,68 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>(
         <div ref={ref} className={containerClasses} {...props}>
           <div
             ref={dropdownRef}
-            className="select__dropdown"
+            className={`select__dropdown ${
+              autoComplete ? "select__dropdown--autocomplete" : ""
+            }`}
             onFocus={handleFocus}
             onBlur={handleBlur}
-            tabIndex={disabled ? -1 : 0}
+            tabIndex={autoComplete ? -1 : disabled ? -1 : 0}
           >
-            <button
-              type="button"
-              className="select__trigger"
-              onClick={handleDropdownToggle}
-              onMouseDown={(e) => e.preventDefault()}
-              disabled={disabled}
-              aria-expanded={isDropdownOpen}
-              aria-haspopup="listbox"
-              aria-labelledby={label ? `${selectId}-label` : undefined}
-            >
-              <div className="select__trigger-content">
-                {selectedOption ? (
-                  <div className="select__selected-option">
-                    {selectedOption.leadingIcon && (
-                      <span className="select__selected-icon">
-                        {selectedOption.leadingIcon}
-                      </span>
-                    )}
-                    <div className="select__selected-text">
-                      <span className="select__selected-label">
-                        {selectedOption.label}
-                      </span>
-                      {selectedOption.subDescription && (
-                        <span className="select__selected-description">
-                          {selectedOption.subDescription}
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                ) : (
-                  <span className="select__placeholder">{placeholder}</span>
-                )}
-              </div>
-              <ChevronDown
-                className={`select__chevron ${
-                  isDropdownOpen ? "select__chevron--open" : ""
-                }`}
-                size={20}
-              />
-            </button>
+            {autoComplete ? (
+              <>
+                <input
+                  ref={inputRef}
+                  type="text"
+                  className="select__input"
+                  value={
+                    searchQuery ||
+                    (isFocused ? "" : selectedOption?.label || "")
+                  }
+                  onChange={handleInputChange}
+                  onFocus={handleFocus}
+                  onBlur={handleBlur}
+                  onKeyDown={handleInputKeyDown}
+                  placeholder={placeholder}
+                  disabled={disabled}
+                  // aria-expanded={isDropdownOpen}
+                  aria-haspopup="listbox"
+                  aria-labelledby={label ? `${selectId}-label` : undefined}
+                />
+                <ChevronDown
+                  className={`select__chevron ${
+                    isDropdownOpen ? "select__chevron--open" : ""
+                  }`}
+                  size={20}
+                />
+              </>
+            ) : (
+              <button
+                type="button"
+                className="select__trigger"
+                onClick={handleDropdownToggle}
+                onMouseDown={(e) => e.preventDefault()}
+                disabled={disabled}
+                aria-expanded={isDropdownOpen}
+                aria-haspopup="listbox"
+                aria-labelledby={label ? `${selectId}-label` : undefined}
+              >
+                <div className="select__trigger-content">
+                  {selectedOption ? (
+                    <span className="select__selected-label">
+                      {selectedOption.label}
+                    </span>
+                  ) : (
+                    <span className="select__placeholder">{placeholder}</span>
+                  )}
+                </div>
+                <ChevronDown
+                  className={`select__chevron ${
+                    isDropdownOpen ? "select__chevron--open" : ""
+                  }`}
+                  size={20}
+                />
+              </button>
+            )}
 
             {shouldRenderDropdown && (
               <div
@@ -190,35 +250,39 @@ export const Select = forwardRef<HTMLDivElement, SelectProps>(
                   isDropdownOpen ? "select__dropdown-menu--open" : ""
                 }`}
               >
-                {options.map((option) => (
-                  <button
-                    key={option.value}
-                    type="button"
-                    className={`select__dropdown-item ${
-                      option.value === value
-                        ? "select__dropdown-item--selected"
-                        : ""
-                    }`}
-                    onClick={() => handleDropdownSelect(option.value)}
-                    onMouseDown={(e) => e.preventDefault()}
-                  >
-                    {option.leadingIcon && (
-                      <span className="select__option-icon">
-                        {option.leadingIcon}
-                      </span>
-                    )}
-                    <div className="select__option-text">
-                      <span className="select__option-label">
-                        {option.label}
-                      </span>
-                      {option.subDescription && (
-                        <span className="select__option-description">
-                          {option.subDescription}
+                {filteredOptions.length > 0 ? (
+                  filteredOptions.map((option) => (
+                    <button
+                      key={option.value}
+                      type="button"
+                      className={`select__dropdown-item ${
+                        option.value === value
+                          ? "select__dropdown-item--selected"
+                          : ""
+                      }`}
+                      onClick={() => handleDropdownSelect(option.value)}
+                      onMouseDown={(e) => e.preventDefault()}
+                    >
+                      {option.leadingIcon && (
+                        <span className="select__option-icon">
+                          {option.leadingIcon}
                         </span>
                       )}
-                    </div>
-                  </button>
-                ))}
+                      <div className="select__option-text">
+                        <span className="select__option-label">
+                          {option.label}
+                        </span>
+                        {option.subDescription && (
+                          <span className="select__option-description">
+                            {option.subDescription}
+                          </span>
+                        )}
+                      </div>
+                    </button>
+                  ))
+                ) : (
+                  <div className="select__no-results">No results found</div>
+                )}
               </div>
             )}
           </div>

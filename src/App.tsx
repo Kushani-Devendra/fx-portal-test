@@ -11,6 +11,7 @@ function App() {
   const [phoneCountry, setPhoneCountry] = useState("us");
   const [currency, setCurrency] = useState("usd");
   const [basicChecked, setBasicChecked] = useState(false);
+  const [selectedValue, setSelectedValue] = useState("");
 
   const countryOptions = [
     { label: "+1 (US)", value: "us" },
@@ -85,14 +86,14 @@ function App() {
         onDropdownChange={setCurrency}
         placeholder="Enter amount"
         disabled
-      />{" "}
-      <TextField
+      />*/}
+      {/* <TextField
         label="Password"
         destructive
         hintText="Password must be at least 8 characters"
         trailingIcon={<Search />}
-      /> 
-      <>
+      /> */}
+      {/* <>
         <Checkbox label="Email notifications" defaultChecked />
         <Checkbox label="SMS notifications" hintText="asd" />
         <Checkbox label="Push notifications" disabled />
@@ -117,17 +118,25 @@ function App() {
         label="Required Option"
         required
         disabled
-      />*/}
-
+      /> */}
       <Select
-        label="Account Type"
-        required
-        placeholder="Choose account type"
+        label="Choose Option"
         options={options}
-        value={currency}
-        onChange={setCurrency}
-        hintText="Select the type of account you want to manage"
-        size="md"
+        value={selectedValue}
+        onChange={setSelectedValue}
+        placeholder="Select an option"
+        disabled
+      />
+
+      {/* Autocomplete Select */}
+      <Select
+        label="Search Option"
+        options={options}
+        value={selectedValue}
+        onChange={setSelectedValue}
+        placeholder="Type to search..."
+        autoComplete={true}
+        required
       />
     </div>
   );
