@@ -6,6 +6,7 @@ import { TextField } from "./shared/components/textfield/Textfield";
 import { Checkbox } from "./shared/components/checkbox/Checkbox";
 import { RadioButton } from "./shared/components/radio/RadioButton";
 import { Select } from "./shared/components/select/Select";
+import { Switch } from "./shared/components/switch/Switch";
 
 function App() {
   const [phoneCountry, setPhoneCountry] = useState("us");
@@ -93,12 +94,12 @@ function App() {
         hintText="Password must be at least 8 characters"
         trailingIcon={<Search />}
       /> */}
-      {/* <>
+      <>
         <Checkbox label="Email notifications" defaultChecked />
         <Checkbox label="SMS notifications" hintText="asd" />
         <Checkbox label="Push notifications" disabled />
       </>
-      <RadioButton name="option" value="option1" label="Option 1" />
+      {/*   <RadioButton name="option" value="option1" label="Option 1" />
       <RadioButton
         name="option"
         value="option2"
@@ -111,24 +112,25 @@ function App() {
         label="Option 3"
         destructive
         hintText="This option has an error"
-      />
+      />*/}
       <RadioButton
         name="option"
         value="option4"
         label="Required Option"
         required
-        disabled
-      /> */}
+        hintText="sdfs"
+        destructive
+      />
       <Select
         label="Choose Option"
         options={options}
         value={selectedValue}
         onChange={setSelectedValue}
         placeholder="Select an option"
-        disabled
+        destructive
+        hintText="ada"
       />
 
-      {/* Autocomplete Select */}
       <Select
         label="Search Option"
         options={options}
@@ -138,6 +140,18 @@ function App() {
         autoComplete={true}
         required
       />
+      <Switch
+        label="Enable notifications"
+        hintText="Turn on to receive updates"
+      />
+
+      <Switch
+        label="Delete after 30 days"
+        hintText="This action cannot be undone"
+        destructive
+      />
+
+      <Switch label="Remember me" disabled />
     </div>
   );
 }

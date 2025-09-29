@@ -1,0 +1,131 @@
+@import "../../../themeScss/variables";
+
+.switch-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: $scale-4;
+  width: 100%;
+  position: relative;
+}
+
+.switch {
+  display: inline-flex;
+  align-items: center;
+  gap: $scale-8;
+  cursor: pointer;
+  font-family: $font-family-base;
+  font-weight: $font-weight-regular;
+  font-size: $scale-14;
+  color: $text-primary;
+  position: relative;
+
+  &--disabled {
+    cursor: not-allowed;
+    color: $text-tertiary;
+
+    .switch__track {
+      background-color: $surface-disabled;
+    }
+
+    .switch__thumb {
+      background-color: $icon-secondary;
+    }
+  }
+
+  &--focused:not(.switch--disabled) {
+    .switch__track {
+      box-shadow: $shadow-focus-default;
+    }
+  }
+
+  &--destructive:not(.switch--disabled) {
+    .switch__track {
+      background-color: $red-100;
+    }
+
+    &.switch--focused .switch__track {
+      box-shadow: $shadow-focus-danger;
+    }
+
+    .switch__label {
+      color: $text-danger;
+    }
+  }
+}
+
+.switch__input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+
+  &:checked + .switch__track {
+    background-color: $azure-400;
+
+    .switch__thumb {
+      transform: translateX(19px);
+    }
+  }
+
+  &:disabled + .switch__track {
+    background-color: $gray-200;
+
+    .switch__thumb {
+      background-color: $icon-secondary;
+    }
+  }
+}
+
+.switch__track {
+  width: $scale-36;
+  height: $scale-20;
+  background-color: $gray-300; // darker gray than before
+  border-radius: $scale-20;
+  display: flex;
+  align-items: center;
+  padding: $scale-2;
+  transition: background-color 0.2s ease-in-out;
+  position: relative;
+}
+
+.switch__thumb {
+  width: $scale-16;
+  height: $scale-16;
+  border-radius: $border-radius-512;
+  background-color: $color-white;
+  transition: transform 0.2s ease-in-out;
+  transform: translateX(0);
+}
+
+.switch__label {
+  line-height: $line-height-normal;
+  user-select: none;
+}
+
+.switch__required {
+  color: $text-danger;
+  margin-left: $scale-2;
+}
+
+.switch__hint {
+  display: flex;
+  align-items: center;
+  gap: $scale-6;
+  font-family: $font-family-base;
+  font-weight: $font-weight-regular;
+  font-size: $scale-12;
+  color: $text-secondary;
+  line-height: $line-height-normal;
+
+  &--destructive {
+    color: $text-danger;
+
+    svg {
+      flex-shrink: 0;
+    }
+  }
+}
+
+.switch__hint-icon {
+  flex-shrink: 0;
+  color: $text-danger;
+}
